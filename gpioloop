@@ -1,11 +1,64 @@
 #!/bin/sh
-for i in `seq 1 26`; do
-  echo $i > /sys/class/gpio/export
-  echo out > /sys/class/gpio/gpio$i/direction
-done
-for i in `seq 1 26`; do
-  echo "GPIO $i"
-  echo 1 > /sys/class/gpio/gpio$i/value
-  sleep 1
-  echo 0 > /sys/class/gpio/gpio$i/value
-done
+
+gpio_set_val()
+{
+    echo "GPIO $1 -> $2"
+    echo $2 > /sys/class/gpio/gpio$1/value
+}
+
+gpio_set_dir()
+{
+    echo $2 > /sys/class/gpio/gpio$1/direction
+}
+
+probe_all_gpios()
+{
+    for i in `seq 1 26`; do
+      echo $i > /sys/class/gpio/export
+      gpio_set_dir $i out
+    done
+    for i in `seq 1 26`; do
+      gpio_set_val $i 1
+      sleep 1
+      gpio_set_val $i 0
+    done
+}
+
+run()
+{
+    gpio=$1
+    time=$2
+
+    echo $gpio > /sys/class/gpio/export
+
+    gpio_set_val $gpio 1
+    sleep $time
+    gpio_set_val $gpio 0
+}
+
+usage()
+{
+    echo "$0 [args]"
+    echo "\t probe \t activate all gpios for 1 sec each for evah"
+    echo "\t run \t [gpio] [sec] - Activate a single gpio for a number of seconds"
+}
+
+# Main
+case $1 in
+    probe|"")
+        while true
+	do
+            probe_all_gpios
+        done
+        ;;
+    run)
+        run
+        ;;
+    help)
+        usage
+        ;;
+    *)
+        usage
+        ;;
+esac
+
