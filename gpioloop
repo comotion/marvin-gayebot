@@ -1,0 +1,11 @@
+#!/bin/sh
+for i in `seq 1 26`; do
+  echo $i > /sys/class/gpio/export
+  echo out > /sys/class/gpio/gpio$i/direction
+done
+for i in `seq 1 26`; do
+  echo "GPIO $i"
+  echo 1 > /sys/class/gpio/gpio$i/value
+  sleep 1
+  echo 0 > /sys/class/gpio/gpio$i/value
+done
