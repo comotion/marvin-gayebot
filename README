@@ -7,6 +7,24 @@ Raspberry PI running Isthmus (see http://eid.cool)
 
 gpioloop - loops around on gpios, just for testing.
 
+Gayebot inputs:
+PIN COLOR    Function
+ 0  brown    GND
+ 1  red      VCC
+ 2  orange   head
+ 3  yellow   neck left
+ 4  green    neck right
+ 5  blue		 paw  right down
+ 6  brown    paw  right up
+ 7  red      paw  left  down
+ 8  orange   paw  left  up
+ 9  yellow   switch?
+10  green    gnd
+11  blue     pwm sound?
+
+motor controls are simple H bridges.
+
+RPi outputs:
 SND+:  GPIO 18  = pin 12
 SND-:  GND      = pin 14
 
@@ -33,5 +51,4 @@ IO_4: - GPIO19  = pin 35
 IO_5: + GPIO16  = pin 36  NC
 IO_5: - GPIO20  = pin 38  NC
 
-
-So... which pair does what?
+connect what to what? how to power the pi?
