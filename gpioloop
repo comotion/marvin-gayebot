@@ -2,7 +2,6 @@
 
 gpio_set_val()
 {
-    echo "GPIO $1 -> $2"
     echo $2 > /sys/class/gpio/gpio$1/value
 }
 
