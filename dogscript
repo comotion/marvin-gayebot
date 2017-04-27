@@ -1,0 +1,75 @@
+#!/bin/sh
+source $(dirname $0)/gpioloop
+
+# map pin 2 .. to gpio numbers
+head=21
+neck_l=5
+neck_r=6
+paw_r_dn=13
+paw_r_up=19
+paw_l_dn=16
+paw_l_up=20
+pwm=18
+
+#force jack/pwm output
+amixer cset numid=3 1
+
+for gpio in $head $neck_l $neck_r $paw_r_dn $paw_r_up $paw_l_dn $paw_l_up; do
+	echo $gpio
+	gpio_set_dir $i out
+	gpio_set_val $i 1
+	sleep 1
+	gpio_set_val $i 0
+done
+
+movement(){
+	case $1 in
+	  left|up)
+		[ -n "$3" ] && gpio_set_val $3 0
+		gpio_set_val $2 1
+		;;
+		right|down)
+		gpio_set_val $2 0
+		[ -n "$3" ] && gpio_set_val $3 1
+		;; 
+		*)
+		gpio_set_val $2 0
+		[ -n "$3" ] && gpio_set_val $3 0
+	esac
+}
+doghead(){
+	movement $1 $head
+}
+neck(){
+	movement $1 $neck_l $neck_r
+}
+paw(){
+	paw=$1; shift
+	if [ "$paw" = "left" ]; then
+		movement $1 $paw_l_up $paw_l_dn
+	else
+		movement $1 $paw_r_up $paw_r_dn
+	fi
+}
+macarena(){
+	paw left down
+	sleep 4
+	paw right down
+	sleep 4
+	paw left up
+	sleep 4
+	paw right up
+	sleep 4
+	doghead up
+	neck left
+	sleep 0.3
+	neck right
+	sleep 0.3
+
+	paw left poof
+	paw right poof
+	neck poof
+	sleep 4
+}
+
+while :; do macarena;  done

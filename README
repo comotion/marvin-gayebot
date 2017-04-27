@@ -11,44 +11,21 @@ Gayebot inputs:
 PIN COLOR    Function
  0  brown    GND
  1  red      VCC
+
  2  orange   head
+
  3  yellow   neck left
  4  green    neck right
+
  5  blue		 paw  right down
  6  brown    paw  right up
+
  7  red      paw  left  down
  8  orange   paw  left  up
+
  9  yellow   switch?
+
 10  green    gnd
-11  blue     pwm sound?
+11  blue     pwm soundt
 
-motor controls are simple H bridges.
-
-RPi outputs:
-SND+:  GPIO 18  = pin 12
-SND-:  GND      = pin 14
-
-par 1
-IO_0: + GPIO 4  = pin 7
-IO_0: - GPIO17  = pin 11
-
-par 2
-IO_1: + GPIO27  = pin 13
-IO_1: - GPIO22  = pin 15
-
-par 3
-IO_2: + GPIO23  = pin 16
-IO_2: - GPIO24  = pin 18
-
-par 4
-IO_3: + GPIO 5  = pin 29
-IO_3: - GPIO 6  = pin 31
-
-par 5
-IO_4: + GPIO13  = pin 33
-IO_4: - GPIO19  = pin 35
-
-IO_5: + GPIO16  = pin 36  NC
-IO_5: - GPIO20  = pin 38  NC
-
-connect what to what? how to power the pi?
+motor controls are H bridges.

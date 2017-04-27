@@ -45,9 +45,9 @@ usage()
 
 # Main
 case $1 in
-    probe|"")
+    probe)
         while true
-	do
+        do
             probe_all_gpios
         done
         ;;
@@ -55,9 +55,6 @@ case $1 in
         run
         ;;
     help)
-        usage
-        ;;
-    *)
         usage
         ;;
 esac
