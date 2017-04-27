@@ -14,11 +14,11 @@ pwm=18
 #force jack/pwm output
 amixer cset numid=3 1
 for gpio in $head $neck_l $neck_r $paw_r_dn $paw_r_up $paw_l_dn $paw_l_up; do
-	echo $gpio
-	gpio_set_dir $i out
-	gpio_set_val $i 1
+	echo $gpio > /sys/class/gpio/export
+	gpio_set_dir $gpio out
+	gpio_set_val $gpio 1
 	sleep 1
-	gpio_set_val $i 0
+	gpio_set_val $gpio 0
 done
 
 movement(){
