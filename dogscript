@@ -51,26 +51,29 @@ paw(){
 	fi
 }
 macarena(){
+	for i in 5 4 3 2 1 0; do
 	paw left down
-	sleep 4
+	sleep 0.$i
 	paw right down
-	sleep 4
+	sleep 0.$i
 	paw left up
-	sleep 4
+	sleep 0.$i
 	paw right up
-	sleep 4
+	sleep 0.$i
 	doghead up
 	neck left
-	sleep 0.3
+	sleep 0.$i
 	neck right
-	sleep 0.3
+	sleep 0.$i
 
 	paw left poof
 	paw right poof
 	neck poof
-	sleep 4
+	doghead poof
+	sleep 0.$i
+  done
 }
 
-( while :; do aplay /macarena.wav; done ) &
+( while :; do aplay /macarena.wav; sleep 1;done ) &
 sndpid=$?
 while :; do macarena;  done
